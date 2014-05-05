@@ -1,0 +1,60 @@
+<Account xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <AccountName>Company name</AccountName>
+  <AccountOwner>John</AccountOwner>
+  <AccountRep>Susan</AccountRep>
+  <Agency>Main Street Agency</Agency>
+  <AnniversaryDate>2012-01-01T00:00:00</AnniversaryDate>
+  <Branch>Chicago Office</Branch>
+  <Claims>
+    <Claim>
+      <EventDate>2014-05-04T07:09:52.1349032-07:00</EventDate>
+      <ReportedDate>2014-05-04T07:09:52.1349032-07:00</ReportedDate>
+      <TriggerDate>2014-05-04T07:09:52.1349032-07:00</TriggerDate>
+    </Claim>
+  </Claims>
+  <ClientType>Commercial Lines</ClientType>
+  <ContactId>abc123</ContactId>
+  <Contacts>
+    <Contact>
+      <Address>698 NW York Dr</Address>
+      <Address2 i:nil="true"/>
+      <Birthday>2008-01-01T00:00:00</Birthday>
+      <CellPhone>541 330-2300</CellPhone>
+      <City>Bend</City>
+      <Company>Agency Revolution</Company>
+      <Email>api@agencyrevolution.com</Email>
+      <Fax i:nil="true"/>
+      <FirstName>Lucas</FirstName>
+      <HomePhone i:nil="true"/>
+      <IsPrimary>true</IsPrimary>
+      <LastName>Jans</LastName>
+      <OfficePhone i:nil="true"/>
+      <Relationship i:nil="true"/>
+      <State>Oregon</State>
+      <Title i:nil="true"/>
+      <Website i:nil="true"/>
+      <ZipCode>97702</ZipCode>
+    </Contact>
+  </Contacts>
+  <ExternalStatus>Client</ExternalStatus>
+  <MarketingPlan i:nil="true"/>
+  <MarketingSource i:nil="true"/>
+  <OptOut>false</OptOut>
+  <Policies>
+    <Policy>
+      <Carrier>Great Northwestern</Carrier>
+      <EffectiveDate>2013-12-12T00:00:00</EffectiveDate>
+      <ExpirationDate>2014-12-12T00:00:00</ExpirationDate>
+      <ExternalPolicyStatus>Renewal</ExternalPolicyStatus>
+      <InceptionDate>2008-12-12T00:00:00</InceptionDate>
+      <PolicyClientType>Commercial</PolicyClientType>
+      <PolicyPremium>8000</PolicyPremium>
+      <PolicyStatusType>Active</PolicyStatusType>
+      <PolicyType>General Liability</PolicyType>
+      <PolicyTypeCode>GLIA</PolicyTypeCode>
+    </Policy>
+  </Policies>
+  <Producer i:nil="true"/>
+  <TotalPolicies>0</TotalPolicies>
+  <TotalPremium i:nil="true"/>
+</Account>
