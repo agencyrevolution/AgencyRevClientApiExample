@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Threading.Tasks;
 using ClientApiWrapper.Models;
 using IPS.ClientApi.Messages;
@@ -21,7 +17,7 @@ namespace ClientApiWrapper
             using (var handler = new HttpClientHandler { Credentials = new NetworkCredential(username, password) })
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri("http://712.dnndev.me/");
+                client.BaseAddress = new Uri("https://www.agencyrevolution.com/");
                 client.DefaultRequestHeaders.Accept.Clear();
 
                 switch (dataType)
