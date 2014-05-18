@@ -43,6 +43,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtAccountId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnMultipleJson = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -186,11 +188,35 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Account Id";
             // 
+            // btnMultipleJson
+            // 
+            this.btnMultipleJson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMultipleJson.Location = new System.Drawing.Point(182, 138);
+            this.btnMultipleJson.Name = "btnMultipleJson";
+            this.btnMultipleJson.Size = new System.Drawing.Size(127, 23);
+            this.btnMultipleJson.TabIndex = 7;
+            this.btnMultipleJson.Text = "Submit Multiple Json";
+            this.btnMultipleJson.UseVisualStyleBackColor = true;
+            this.btnMultipleJson.Click += new System.EventHandler(this.btnMultipleJson_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(182, 68);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Submit Multiple Xml";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnMultipleJson_Click);
+            // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 397);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnMultipleJson);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblDocumentation);
@@ -226,6 +252,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtAccountId;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnMultipleJson;
+        private System.Windows.Forms.Button button1;
     }
 }
 

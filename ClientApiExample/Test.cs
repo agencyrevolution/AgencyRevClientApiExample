@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using ClientApiWrapper;
@@ -34,6 +36,9 @@ namespace ClientApiExample
         private async void btnSubmitJson_Click(object sender, EventArgs e)
         {
 
+            var sw = new Stopwatch();
+            sw.Start();
+
             lblJson.Text = "Reading XML.";
             string account = File.ReadAllText(@"..\..\example.json");
 
@@ -47,12 +52,17 @@ namespace ClientApiExample
             lblJson.Text = "Waiting for server response.";
             var newAccountResponse = await task;
 
-            lblJson.Text = String.Format("Server responded: {0}, view ApiResponse object for full details.", newAccountResponse.Meta.Result);
+            sw.Stop();
+
+            lblJson.Text = String.Format("Server responded: {0}, view ApiResponse object for full details. Speed {1}", newAccountResponse.Meta.Result, sw.ElapsedMilliseconds);
 
         }
 
         private async void btnSubmit_Click(object sender, EventArgs e)
         {
+
+            var sw = new Stopwatch();
+            sw.Start();
 
             lblXml.Text = "Reading XML.";
             string account = File.ReadAllText(@"..\..\example.xml");
@@ -67,7 +77,9 @@ namespace ClientApiExample
             lblXml.Text = "Waiting for server response.";
             var newAccountResponse = await task;
 
-            lblXml.Text = String.Format("Server responded: {0}, view ApiResponse object for full details.", newAccountResponse.Meta.Result);
+            sw.Stop();
+
+            lblXml.Text = String.Format("Server responded: {0}, view ApiResponse object for full details. Speed: {1}", newAccountResponse.Meta.Result, sw.ElapsedMilliseconds);
 
         }
 
@@ -83,6 +95,38 @@ namespace ClientApiExample
         private void lblDocumentation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private async void btnMultipleJson_Click(object sender, EventArgs e)
+        {
+
+            var sw = new Stopwatch();
+            sw.Start();
+
+            lblJson.Text = "Reading JSON.";
+            string account = File.ReadAllText(@"..\..\example.json");
+
+            lblJson.Text = "Deserialzing to Account object.";
+            var newAccount = JsonConvert.DeserializeObject<Account>(account);
+
+            // create an array of 50 accounts to send at once. in your code you will get real data
+            var accounts = new List<Account>();
+            for (int i = 0; i < 50; i++)
+            {
+                accounts.Add(newAccount);
+            }
+
+            var tasks =
+                ClientApiWrapper.Controller.PostAccounts(accounts, Properties.Settings.Default.AccountId,
+                    Properties.Settings.Default.Username, Properties.Settings.Default.Password, Controller.SubmitDataType.Json);
+
+            lblJson.Text = "Waiting for server response.";
+            var newAccountResponse = await tasks;
+
+            sw.Stop();
+
+            lblJson.Text = String.Format("Server responses: {0}, debug to view all responses. Speed {1}", newAccountResponse.Count, sw.ElapsedMilliseconds);
+
         }
 
 
