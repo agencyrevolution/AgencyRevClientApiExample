@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 using ClientApiWrapper;
 using IPS.ClientApi.Messages;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace ClientApiExample
 {
@@ -68,7 +70,7 @@ namespace ClientApiExample
             string account = File.ReadAllText(@"..\..\example.xml");
 
             lblXml.Text = "Deserialzing to Account object.";
-            var newAccount = FromXmlString(account);
+            var newAccount = Helpers.FromXmlString<Account>(account);
 
             var task =
                 ClientApiWrapper.Controller.PostAccount(newAccount, Properties.Settings.Default.AccountId,
@@ -83,14 +85,7 @@ namespace ClientApiExample
 
         }
 
-        public static Account FromXmlString(string xmlString)
-        {
-            var reader = new StringReader(xmlString);
-            var serializer = new XmlSerializer(typeof(Account));
-            var instance = (Account)serializer.Deserialize(reader);
 
-            return instance;
-        }
 
         private void lblDocumentation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -126,6 +121,47 @@ namespace ClientApiExample
             sw.Stop();
 
             lblJson.Text = String.Format("Server responses: {0}, debug to view all responses. Speed {1}", newAccountResponse.Count, sw.ElapsedMilliseconds);
+
+        }
+
+
+
+
+        private async void btnMultipleXml_Click(object sender, EventArgs e)
+        {
+
+            var sw = new Stopwatch();
+            sw.Start();
+
+            lblXml.Text = string.Format("Reading XML. {0}ms", sw.ElapsedMilliseconds);
+            var accounts = XDocument.Load(@"..\..\exampleAccounts.xml");
+
+            lblXml.Text = string.Format("Deserialzing to Account object. {0} ms", sw.ElapsedMilliseconds);
+            var accountsList = accounts.Descendants("Account").Select(Helpers.FromXmlNode<Account>).ToList();
+
+            /*
+             * I would recommend doing this in segments of 100 records per request to minimize the amount of memory the 
+             * application consumes. If you put the entire file in memory, it will run very slow.
+             * Plus if there are any errors you want to easily be able to retry just the records needed.
+             * See the Skip and Take methods on extension
+            var accountsList = accounts.Descendants("Account").
+                Select(FromXmlNode<Account>).
+                Skip(0).
+                Take(100).
+                ToList();
+             */
+
+
+            var tasks =
+                ClientApiWrapper.Controller.PostAccounts(accountsList, Properties.Settings.Default.AccountId,
+                    Properties.Settings.Default.Username, Properties.Settings.Default.Password, Controller.SubmitDataType.Json);
+
+            lblXml.Text = string.Format("Waiting for server response. {0} ms", sw.ElapsedMilliseconds);
+            var newAccountResponse = await tasks;
+
+            sw.Stop();
+
+            lblXml.Text = String.Format("Server responses: {0}, debug to view all responses. Speed {1} ms", newAccountResponse.Count, sw.ElapsedMilliseconds);
 
         }
 
