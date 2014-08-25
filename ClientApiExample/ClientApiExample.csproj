@@ -93,8 +93,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="exampleAccounts.xml" />
-    <Content Include="example.xml" />
+    <Content Include="exampleAccounts.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="example.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="MultiAccounts.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

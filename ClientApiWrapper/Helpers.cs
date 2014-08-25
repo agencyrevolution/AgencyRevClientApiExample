@@ -25,11 +25,18 @@ namespace ClientApiWrapper
 
         public static T FromXmlString<T>(string xmlString)
         {
-            var reader = new StringReader(xmlString);
-            var serializer = new XmlSerializer(typeof(T));
-            var instance = (T)serializer.Deserialize(reader);
+            try
+            {
+                var reader = new StringReader(xmlString);
+                var serializer = new XmlSerializer(typeof (T));
+                var instance = (T) serializer.Deserialize(reader);
 
-            return instance;
+                return instance;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("XML Serialization error (line - column) {0} - inner exception {1}", ex.Message, ex.InnerException), ex);
+            }
         }
     }
 }

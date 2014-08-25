@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ClientApiWrapper.Models;
@@ -16,10 +17,11 @@ namespace ClientApiWrapper
         {
             var serverResponse = new ApiResponse();
 
-            using (var handler = new HttpClientHandler { Credentials = new NetworkCredential(username, password) })
+            using (var handler = new HttpClientHandler())
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri("https://www.agencyrevolution.com/");
+                client.BaseAddress = new Uri("https://www.agencyrevolution.com");
+                client.DefaultRequestHeaders.Add("AR-Login", "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
                 client.DefaultRequestHeaders.Accept.Clear();
 
                 switch (dataType)
