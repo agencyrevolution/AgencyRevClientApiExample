@@ -26,37 +26,26 @@ namespace ClientApiExample.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AccountId {
+        public string ListId {
             get {
-                return ((string)(this["AccountId"]));
+                return ((string)(this["ListId"]));
             }
             set {
-                this["AccountId"] = value;
+                this["ListId"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Username {
+        public string AuthKey {
             get {
-                return ((string)(this["Username"]));
+                return ((string)(this["AuthKey"]));
             }
             set {
-                this["Username"] = value;
+                this["AuthKey"] = value;
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Password {
-            get {
-                return ((string)(this["Password"]));
-            }
-            set {
-                this["Password"] = value;
-            }
-        }
     }
 }

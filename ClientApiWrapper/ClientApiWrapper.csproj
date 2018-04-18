@@ -30,11 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IPS.ClientApi.Messages">
-      <HintPath>..\ExternalReferences\IPS.ClientApi.Messages.dll</HintPath>
-    </Reference>
-    <Reference Include="Messaging.Interface">
-      <HintPath>..\ExternalReferences\Messaging.Interface.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\RequestWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

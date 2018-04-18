@@ -2,139 +2,101 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ClientApiWrapper.Models;
-using IPS.ClientApi.Messages;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ClientApiWrapper
 {
     public class Controller
     {
-        public static async Task<ApiResponse> PostAccount(Account postData, string accountId, string username, string password, SubmitDataType dataType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postData">The object to send to AR</param>
+        /// <param name="entityType">The entity type (string) such as Customer or Employee</param>
+        /// <param name="listId">ListId of User</param>
+        /// <param name="authKey">Auth key of corresponding ListId</param>
+        /// <param name="dataType">XML or JSON?</param>
+        /// <param name="keyField">What field name is the primary key for the root entity?</param>
+        /// <param name="system">Identify your AMS with a name</param>
+        /// <param name="schemaVersion">Optional version if the schema changes</param>
+        /// <returns></returns>
+        public static async Task<HttpStatusCode> PostAccount(object postData, string entityType, string listId, string authKey, string keyField, SubmitDataType dataType, string system, short schemaVersion = 1)
         {
-            var serverResponse = new ApiResponse();
 
             using (var handler = new HttpClientHandler())
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri("https://www.agencyrevolution.com");
-                client.DefaultRequestHeaders.Add("AR-Login", "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
-                client.DefaultRequestHeaders.Accept.Clear();
+
+#if DEBUG
+                var rootUrl = "https://ms--api-agencyrevolution-com-3wj686717b74.runscope.net";
+#else
+                var rootUrl = ""https://ms-api-agencyrevolution.com/";
+#endif
+
+                client.BaseAddress = new Uri(rootUrl);
+                client.DefaultRequestHeaders.Add("Ar-Auth-Token", authKey);
+
+                var postObject = new RequestWrapper()
+                {
+                    Data = new object[] {postData},
+                    MetaData = new RequestWrapper.MetaDataObject()
+                     {
+                         DataType = entityType,
+                         KeyField = keyField,
+                         ListId = listId,
+                         SchemaVersion = schemaVersion,
+                         System = system
+                     }
+                };
 
                 switch (dataType)
                 {
                     case SubmitDataType.Xml:
                         {
-                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
                             var response =
                                 await
                                     client.PostAsXmlAsync(
-                                        String.Format("/desktopmodules/ClientApi/Api/Transmit/PostAccount/{0}", accountId),
-                                        postData);
+                                        "/api/v1/sync-data",
+                                        postObject);
 
-                            if (response.IsSuccessStatusCode)
-                            {
-                                serverResponse = await response.Content.ReadAsAsync<ApiResponse>();
-                            }
-                            else
-                            {
-                                serverResponse = new ApiResponse()
-                                {
-                                    Meta =
-                                        new ApiResponse.MetaInfo()
-                                        {
-                                            Error = response.ReasonPhrase,
-                                            ResponseCode = response.StatusCode,
-                                            Result = false
-                                        }
-                                };
-                            }
+                            return response.StatusCode;
                         }
-                        break;
                     case SubmitDataType.Json:
                         {
-                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/json"));
+                            var formatter = new JsonMediaTypeFormatter();
+                            formatter.SerializerSettings = new JsonSerializerSettings
+                            {
+                                Formatting = Formatting.Indented,
+                                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                            };
+
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                             var response =
                                 await
-                                    client.PostAsJsonAsync(
-                                        String.Format("/desktopmodules/ClientApi/Api/Transmit/PostAccount/{0}", accountId),
-                                        postData);
+                                    client.PostAsync(
+                                        "/api/v1/sync-data",
+                                        postObject, formatter);
 
-                            if (response.IsSuccessStatusCode)
-                            {
-                                serverResponse = await response.Content.ReadAsAsync<ApiResponse>();
-                            }
-                            else
-                            {
-                                serverResponse = new ApiResponse()
-                                {
-                                    Meta =
-                                        new ApiResponse.MetaInfo()
-                                        {
-                                            Error = response.ReasonPhrase,
-                                            ResponseCode = response.StatusCode,
-                                            Result = false
-                                        }
-                                };
-                            }
+                            return response.StatusCode;
+
                         }
-                        break;
                 }
 
 
             }
-
-            return serverResponse;
+            
+           throw new Exception("Unsupported dataType");
 
         }
 
-
-        public static async Task<List<ApiResponse>> PostAccounts(List<Account> postData, string accountId, string username, string password, SubmitDataType dataType)
-        {
-            var allTasks = new List<Task>();
-            var allResponses = new List<ApiResponse>();
-
-            var throttler = new SemaphoreSlim(initialCount: 20, maxCount: 20);
-            foreach (var account in postData)
-            {
-
-                await throttler.WaitAsync();
-
-                allTasks.Add(Task.Run(async () =>
-                {
-                    try
-                    {
-                        try
-                        {
-                            allResponses.Add(await PostAccount(account, accountId, username, password, dataType));
-                        }
-                        catch (Exception ex)
-                        {
-                            allResponses.Add(new ApiResponse()
-                            {
-                                Account = account,
-                                Meta = new ApiResponse.MetaInfo()
-                            {
-                                Error = ex.ToString(),
-                                Result = false
-                            }
-                            });
-                        }
-                    }
-                    finally
-                    {
-                        throttler.Release();
-                    }
-                }));
-            }
-
-            await Task.WhenAll(allTasks);
-
-            return allResponses;
-        }
 
         public enum SubmitDataType
         {

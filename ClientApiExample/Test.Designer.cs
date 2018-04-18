@@ -34,17 +34,12 @@
             this.lblXml = new System.Windows.Forms.Label();
             this.btnSubmitJson = new System.Windows.Forms.Button();
             this.lblJson = new System.Windows.Forms.Label();
-            this.lblDocumentation = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtAuthKey = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtAccountId = new System.Windows.Forms.TextBox();
+            this.txtListId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnMultipleJson = new System.Windows.Forms.Button();
-            this.btnMultipleXml = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +74,7 @@
             // btnSubmitJson
             // 
             this.btnSubmitJson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSubmitJson.Location = new System.Drawing.Point(25, 138);
+            this.btnSubmitJson.Location = new System.Drawing.Point(22, 128);
             this.btnSubmitJson.Name = "btnSubmitJson";
             this.btnSubmitJson.Size = new System.Drawing.Size(75, 23);
             this.btnSubmitJson.TabIndex = 0;
@@ -90,28 +85,17 @@
             // lblJson
             // 
             this.lblJson.AutoSize = true;
-            this.lblJson.Location = new System.Drawing.Point(25, 119);
+            this.lblJson.Location = new System.Drawing.Point(22, 109);
             this.lblJson.Name = "lblJson";
             this.lblJson.Size = new System.Drawing.Size(114, 13);
             this.lblJson.TabIndex = 1;
             this.lblJson.Text = "Waiting for Submission";
             // 
-            // lblDocumentation
-            // 
-            this.lblDocumentation.AutoSize = true;
-            this.lblDocumentation.Location = new System.Drawing.Point(36, 326);
-            this.lblDocumentation.Name = "lblDocumentation";
-            this.lblDocumentation.Size = new System.Drawing.Size(138, 13);
-            this.lblDocumentation.TabIndex = 2;
-            this.lblDocumentation.TabStop = true;
-            this.lblDocumentation.Text = "View Online Documentation";
-            this.lblDocumentation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDocumentation_LinkClicked);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(14, 323);
+            this.pictureBox1.Location = new System.Drawing.Point(354, 160);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -120,106 +104,60 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtPassword);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtUsername);
+            this.groupBox1.Controls.Add(this.txtAuthKey);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtAccountId);
+            this.groupBox1.Controls.Add(this.txtListId);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(25, 185);
+            this.groupBox1.Location = new System.Drawing.Point(25, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(345, 132);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credentials";
             // 
-            // txtPassword
+            // txtAuthKey
             // 
-            this.txtPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ClientApiExample.Properties.Settings.Default, "Password", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtPassword.Location = new System.Drawing.Point(83, 86);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(242, 20);
-            this.txtPassword.TabIndex = 11;
-            this.txtPassword.Text = global::ClientApiExample.Properties.Settings.Default.Password;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Password";
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ClientApiExample.Properties.Settings.Default, "Username", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtUsername.Location = new System.Drawing.Point(83, 55);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(242, 20);
-            this.txtUsername.TabIndex = 9;
-            this.txtUsername.Text = global::ClientApiExample.Properties.Settings.Default.Username;
+            this.txtAuthKey.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ClientApiExample.Properties.Settings.Default, "AuthKey", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtAuthKey.Location = new System.Drawing.Point(83, 55);
+            this.txtAuthKey.Name = "txtAuthKey";
+            this.txtAuthKey.Size = new System.Drawing.Size(242, 20);
+            this.txtAuthKey.TabIndex = 9;
+            this.txtAuthKey.Text = global::ClientApiExample.Properties.Settings.Default.AuthKey;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Username";
+            this.label3.Text = "Auth Key";
             // 
-            // txtAccountId
+            // txtListId
             // 
-            this.txtAccountId.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ClientApiExample.Properties.Settings.Default, "AccountId", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtAccountId.Location = new System.Drawing.Point(83, 25);
-            this.txtAccountId.Name = "txtAccountId";
-            this.txtAccountId.Size = new System.Drawing.Size(242, 20);
-            this.txtAccountId.TabIndex = 7;
-            this.txtAccountId.Text = global::ClientApiExample.Properties.Settings.Default.AccountId;
+            this.txtListId.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ClientApiExample.Properties.Settings.Default, "ListId", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtListId.Location = new System.Drawing.Point(83, 25);
+            this.txtListId.Name = "txtListId";
+            this.txtListId.Size = new System.Drawing.Size(242, 20);
+            this.txtListId.TabIndex = 7;
+            this.txtListId.Text = global::ClientApiExample.Properties.Settings.Default.ListId;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Account Id";
-            // 
-            // btnMultipleJson
-            // 
-            this.btnMultipleJson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMultipleJson.Location = new System.Drawing.Point(182, 138);
-            this.btnMultipleJson.Name = "btnMultipleJson";
-            this.btnMultipleJson.Size = new System.Drawing.Size(127, 23);
-            this.btnMultipleJson.TabIndex = 7;
-            this.btnMultipleJson.Text = "Submit Multiple Json";
-            this.btnMultipleJson.UseVisualStyleBackColor = true;
-            this.btnMultipleJson.Click += new System.EventHandler(this.btnMultipleJson_Click);
-            // 
-            // btnMultipleXml
-            // 
-            this.btnMultipleXml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMultipleXml.Location = new System.Drawing.Point(182, 68);
-            this.btnMultipleXml.Name = "btnMultipleXml";
-            this.btnMultipleXml.Size = new System.Drawing.Size(127, 23);
-            this.btnMultipleXml.TabIndex = 7;
-            this.btnMultipleXml.Text = "Submit Multiple Xml";
-            this.btnMultipleXml.UseVisualStyleBackColor = true;
-            this.btnMultipleXml.Click += new System.EventHandler(this.btnMultipleXml_Click);
+            this.label2.Text = "List Id";
             // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 397);
-            this.Controls.Add(this.btnMultipleXml);
-            this.Controls.Add(this.btnMultipleJson);
+            this.ClientSize = new System.Drawing.Size(395, 330);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.lblDocumentation);
             this.Controls.Add(this.lblJson);
             this.Controls.Add(this.lblXml);
             this.Controls.Add(this.label1);
@@ -243,17 +181,12 @@
         private System.Windows.Forms.Label lblXml;
         private System.Windows.Forms.Button btnSubmitJson;
         private System.Windows.Forms.Label lblJson;
-        private System.Windows.Forms.LinkLabel lblDocumentation;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtAuthKey;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtAccountId;
+        private System.Windows.Forms.TextBox txtListId;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnMultipleJson;
-        private System.Windows.Forms.Button btnMultipleXml;
     }
 }
 
